@@ -134,15 +134,15 @@ typedef struct {
   char        ip[16];
 }at_cifsr_t;
 
-int AT_Parse_AT   (char response[], at_common_t *r);
-int AT_Parse_CPIN (char response[], at_cpin_t   *r);
-int AT_Parse_CCID (char response[], at_ccid_t   *r);
-int AT_Parse_CSQ  (char response[], at_csq_t    *r);
-int AT_Parse_CREG (char response[], at_creg_t   *r);
-int AT_Parse_CGREG(char response[], at_cgreg_t  *r);
-int AT_Parse_CSTT (char response[], at_cstt_t   *r);
-int AT_Parse_CGATT(char response[], at_cgatt_t  *r);
-int AT_Parse_CIICR(char response[], at_common_t *r);
-int AT_Parse_CIFSR(char response[], at_cifsr_t  *r);
+int AT_Parse_Common(char response[], at_common_t *r);
+int AT_Parse_CPIN  (char response[], at_cpin_t   *r);
+int AT_Parse_CCID  (char response[], at_ccid_t   *r);
+int AT_Parse_CSQ   (char response[], at_csq_t    *r);
+int AT_Parse_CREG  (char response[], at_creg_t   *r);
+int AT_Parse_CGREG (char response[], at_cgreg_t  *r);
+int AT_Parse_CSTT  (char response[], at_cstt_t   *r);
+int AT_Parse_CGATT (char response[], at_cgatt_t  *r);
+int AT_Parse_CIICR (char response[], at_common_t *r);
+int AT_Parse_CIFSR (char response[], at_cifsr_t  *r);
 
 #endif

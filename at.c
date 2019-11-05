@@ -25,7 +25,7 @@ static char *atou8(char s[], uint8_t *i) {
 }
 
 
-int AT_Parse_common(char response[], at_common_t *r) {
+int AT_Parse_Common(char response[], at_common_t *r) {
     r->result = AT_UNKNOWN;
 
     if (strncmp(response, "\r\nOK\r\n") == 0) {
