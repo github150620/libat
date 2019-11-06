@@ -26,14 +26,14 @@ static char *atou8(char s[], uint8_t *i) {
 
 
 int AT_Parse_Common(char response[], at_common_t *r) {
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(response, "\r\nOK\r\n") == 0) {
-        r->result = AT_OK;
+        r->result = AT_RESPONSE_OK;
         return 0;
     }
     if (strncmp(response, "\r\nERROR\r\n") == 0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
     return -1;
@@ -41,10 +41,10 @@ int AT_Parse_Common(char response[], at_common_t *r) {
 
 int AT_Parse_CPIN(char response[], at_cpin_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) == 0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 
@@ -68,7 +68,7 @@ int AT_Parse_CPIN(char response[], at_cpin_t *r) {
     }
 
     if (strncmp(p, "\r\nOK\r\n", 6) == 0) {
-        r->result = AT_OK;
+        r->result = AT_RESPONSE_OK;
     } else {
         return -1;
     }
@@ -76,17 +76,17 @@ int AT_Parse_CPIN(char response[], at_cpin_t *r) {
     return 0;
 }
 
-int AT_Parse_CCID (char *response, at_ccid_t *r) {
+int AT_Parse_ICCID(char *response, at_iccid_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) == 0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 
-    if (strncmp(p, "\r\n", 2) == 0) {
-        p += 2;
+    if (strncmp(p, "\r\n+ICCID: ", 10) == 0) {
+        p += 10;
     } else {
         return -1;
     }
@@ -106,7 +106,7 @@ int AT_Parse_CCID (char *response, at_ccid_t *r) {
     }
 
     if (strncmp(p, "\r\nOK\r\n", 6) == 0) {
-        r->result = AT_OK;
+        r->result = AT_RESPONSE_OK;
     } else {
         return -1;
     }
@@ -116,10 +116,10 @@ int AT_Parse_CCID (char *response, at_ccid_t *r) {
 
 int AT_Parse_CSQ(char response[], at_csq_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) ==0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 
@@ -129,7 +129,7 @@ int AT_Parse_CSQ(char response[], at_csq_t *r) {
         return -1;
     }
 
-    p = atou8(p, &(csq->rssi));
+    p = atou8(p, &(r->rssi));
     
     if (*p == ',') {
         p++;
@@ -141,7 +141,7 @@ int AT_Parse_CSQ(char response[], at_csq_t *r) {
         p++;
     }
 
-    p = atou8(p, &(csq->ber));
+    p = atou8(p, &(r->ber));
 
     if (*p == '\r') {
         p++;
@@ -156,7 +156,7 @@ int AT_Parse_CSQ(char response[], at_csq_t *r) {
     }
 
     if (strncmp(p, "\r\nOK\r\n", 6) == 0) {
-        r->result = AT_OK;
+        r->result = AT_RESPONSE_OK;
     } else {
         return -1;
     }
@@ -166,10 +166,10 @@ int AT_Parse_CSQ(char response[], at_csq_t *r) {
 
 int AT_Parse_CGATT(char *response, at_cgatt_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) ==0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 
@@ -186,10 +186,10 @@ int AT_Parse_CGATT(char *response, at_cgatt_t *r) {
 
 int AT_Parse_CSTT(char response[], at_cstt_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) ==0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 
@@ -229,12 +229,12 @@ int AT_Parse_CSTT(char response[], at_cstt_t *r) {
     return 0;
 }
 
-int AT_Parse_CIFSR(char *response, at_cifsr *r) {
+int AT_Parse_CIFSR(char *response, at_cifsr_t *r) {
     char *p = response;
-    r->result = AT_UNKNOWN;
+    r->result = AT_RESPONSE_UNKNOWN;
 
     if (strncmp(p, "\r\nERROR\r\n", 9) ==0) {
-        r->result = AT_ERROR;
+        r->result = AT_RESPONSE_ERROR;
         return 0;
     }
 

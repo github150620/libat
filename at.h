@@ -2,9 +2,9 @@
 #define _AT_H_
 
 typedef enum {
-  AT_OK = 0,
-  AT_ERROR,
-  AT_UNKNOWN = 99
+  AT_RESPONSE_OK      = 0,
+  AT_RESPONSE_ERROR   = 1,
+  AT_RESPONSE_UNKNOWN = 99
 }at_result_t;
 
 typedef struct {
@@ -41,7 +41,7 @@ typedef struct {
 typedef struct {
   at_result_t result;
   char        iccid[21];
-}at_ccid_t;
+}at_iccid_t;
 
 /*
  * Command
@@ -127,7 +127,7 @@ typedef struct {
     char apn[8];
     char user[3];
     char pwd[3];
-}
+}at_cstt_t;
 
 typedef struct {
   at_result_t result;
@@ -136,7 +136,7 @@ typedef struct {
 
 int AT_Parse_Common(char response[], at_common_t *r);
 int AT_Parse_CPIN  (char response[], at_cpin_t   *r);
-int AT_Parse_CCID  (char response[], at_ccid_t   *r);
+int AT_Parse_ICCID (char response[], at_iccid_t   *r);
 int AT_Parse_CSQ   (char response[], at_csq_t    *r);
 int AT_Parse_CREG  (char response[], at_creg_t   *r);
 int AT_Parse_CGREG (char response[], at_cgreg_t  *r);
